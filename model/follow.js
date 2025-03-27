@@ -1,6 +1,6 @@
 const { DataTypes, INTEGER } = require("sequelize");
 const sequelize = require("../config/connection");
-const Follow = sequelize.define("follow", {
+const follow = sequelize.define("follow", {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -30,4 +30,4 @@ const Follow = sequelize.define("follow", {
     defaultValue: "pending",
   },
 });
-module.exports = { Follow };
+module.exports = { follow };

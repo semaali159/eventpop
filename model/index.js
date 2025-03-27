@@ -51,4 +51,6 @@ module.exports = {
   userInterest,
   userLocation,
   locations,
+  follow,
+  notification,
 };
