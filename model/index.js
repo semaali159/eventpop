@@ -52,5 +52,5 @@ module.exports = {
   userLocation,
   locations,
   follow,
-  notification,
+  // notification,
 };

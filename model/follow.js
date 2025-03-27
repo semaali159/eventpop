@@ -30,4 +30,4 @@ const follow = sequelize.define("follow", {
     defaultValue: "pending",
   },
 });
-module.exports = { follow };
+module.exports = follow;
