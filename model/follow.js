@@ -10,7 +10,7 @@ const follow = sequelize.define("follow", {
     type: DataTypes.UUID,
     allowNull: false,
     references: {
-      model: "users",
+      model: "user",
       key: "id",
     },
     onDelete: "CASCADE",
@@ -19,7 +19,7 @@ const follow = sequelize.define("follow", {
     type: DataTypes.UUID,
     allowNull: false,
     references: {
-      model: "users",
+      model: "user",
       key: "id",
     },
     onDelete: "CASCADE",
