@@ -30,15 +30,15 @@ const createRequest = asyncHandler(async (req, res) => {
 
   const title = `Follow Request`;
   const body = `${user2.name} sent you a follow request`;
-
-  if (Array.isArray(user1.fcmToken)) {
-    for (const token of user1.fcmToken) {
-      const success = await sendNotification(token, title, body);
-      if (success) {
-        console.log("Notification sent to token:", token);
-      }
-    }
-  }
+  console.log(body);
+  // if (Array.isArray(user1.fcmToken)) {
+  //   for (const token of user1.fcmToken) {
+  //     const success = await sendNotification(token, title, body);
+  //     if (success) {
+  //       console.log("Notification sent to token:", token);
+  //     }
+  //   }
+  // }
 
   return res.status(201).json({ message: "Request sent successfully." });
 });
