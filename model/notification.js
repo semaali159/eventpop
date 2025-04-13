@@ -1,3 +1,5 @@
+const { DataTypes, INTEGER } = require("sequelize");
+const sequelize = require("../config/connection");
 const Notification = sequelize.define(
   "Notification",
   {
@@ -6,15 +8,15 @@ const Notification = sequelize.define(
       primaryKey: true,
       autoIncrement: true,
     },
-    userId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: "user",
-        key: "id",
-      },
-      onDelete: "CASCADE",
-    },
+    // userId: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: false,
+    //   references: {
+    //     model: "user",
+    //     key: "id",
+    //   },
+    //   onDelete: "CASCADE",
+    // },
     message: {
       type: DataTypes.STRING,
       allowNull: false,

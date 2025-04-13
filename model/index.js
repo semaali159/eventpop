@@ -4,11 +4,15 @@ const interest = require("./interest");
 const userInterest = require("./userInterest");
 const userLocation = require("./userLocation");
 const follow = require("./follow");
+const publicEvent = require("./publicEvent");
+const notification = require("./notification");
 const sequelize = require("../config/connection");
 
 // Associations
-// user.hasMany(locations, { foreignKey: "userId" });
-// locations.belongsTo(user, { foreignKey: "userId" });
+user.hasMany(publicEvent, { foreignKey: "userId", onDelete: "CASCADE" });
+publicEvent.belongsTo(user, { foreignKey: "userId" });
+user.hasMany(notification, { foreignKey: "userId", onDelete: "CASCADE" });
+notification.belongsTo(user, { foreignKey: "userId" });
 
 user.belongsToMany(interest, {
   through: userInterest,
@@ -52,5 +56,5 @@ module.exports = {
   userLocation,
   locations,
   follow,
-  // notification,
+  notification,
 };

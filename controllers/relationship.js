@@ -60,14 +60,15 @@ const accepteRequest = asyncHandler(async (req, res) => {
   const title = `Follow Request Accepted`;
   const body = `${user1.name} accepted your follow request`;
 
-  if (Array.isArray(user2.fcmToken)) {
-    for (const token of user2.fcmToken) {
-      const success = await sendNotification(token, title, body);
-      if (success) {
-        console.log("Notification sent to token:", token);
-      }
-    }
-  }
+  // if (Array.isArray(user2.fcmToken)) {
+  //   for (const token of user2.fcmToken) {
+  //     const success = await sendNotification(token, title, body);
+  //     if (success) {
+  //       console.log("Notification sent to token:", token);
+  //     }
+  //   }
+  // }
+  console.log(body);
 
   return res.status(200).json({ message: "Request accepted successfully." });
 });

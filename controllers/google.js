@@ -1,57 +1,44 @@
 const express = require("express");
 const router = express.Router();
-const User = require("./models/User"); // استيراد نموذج المستخدم
-const jwt = require("jsonwebtoken"); // لإنشاء رمز JWT
-const { verifyGoogleToken } = require("./googleAuth"); // وظيفة التحقق من Google
-const { OAuth2Client } = require("google-auth-library");
-// const User = require("./models/User"); // استيراد نموذج المستخدم
+const admin = require("firebase-admin");
+const jwt = require("jsonwebtoken");
 
-const client = new OAuth2Client("jj"); // ضع Client ID لتطبيقك
+// تهيئة Firebase Admin SDK
+const serviceAccount = require("../signinlasttttttttttttttt-firebase-adminsdk-fbsvc-2722b4cead.json");
 
-async function verifyGoogleToken(idToken) {
-  try {
-    // تحقق من صحة الرمز باستخدام Google
-    const ticket = await client.verifyIdToken({
-      idToken,
-      audience: "jj",
-    });
-
-    const payload = ticket.getPayload(); // بيانات المستخدم من Google
-    return payload; // إرجاع البيانات
-  } catch (error) {
-    throw new Error("Invalid Google ID Token");
-  }
-}
-// Route تسجيل الدخول باستخدام Google
-router.post("/auth/google", async (req, res) => {
+// أضف هذا للتحقق من أن معرّف المشروع صحيح
+console.log("المشروع المحدد:", serviceAccount.project_id);
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  // أضف هذا للتأكد من استخدام نفس معرّف المشروع
+  databaseURL: "https://signinlasttttttttttttttt.firebaseio.com",
+});
+console.log(admin);
+router.post("/verify-token", async (req, res) => {
   const { idToken } = req.body;
-
+  console.log("Received ID Token:", idToken);
+  const decoded = jwt.decode(idToken, { complete: true });
+  console.log("Header:", decoded.header);
+  console.log("Payload:", decoded.payload);
   try {
-    // التحقق من صحة الرمز
-    const payload = await verifyGoogleToken(idToken);
+    // تحقق من صلاحية الـ idToken
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
 
-    // البحث عن المستخدم في قاعدة البيانات
-    let user = await User.findOne({ where: { email: payload.email } });
-
-    if (!user) {
-      // إذا لم يكن موجودًا، قم بإنشائه
-      user = await User.create({
-        name: payload.name,
-        email: payload.email,
-        image: payload.picture,
-      });
-    }
-
-    // إنشاء رمز JWT
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET_KEY, {
-      expiresIn: "7d",
+    const { uid, email, name } = decodedToken;
+    const decoded = jwt.decode(idToken, { complete: true });
+    console.log("Header:", decoded.header);
+    console.log("Payload:", decoded.payload);
+    res.json({
+      success: true,
+      uid,
+      email,
+      name: name || "No name provided",
     });
-
-    // إرجاع رمز JWT إلى تطبيق الموبايل
-    res.json({ token, user });
   } catch (error) {
-    res.status(401).json({ message: "Invalid Google ID Token" });
+    console.error("Error verifying token:", error);
+    res.status(401).json({ success: false, error: error.message });
   }
 });
-
 module.exports = router;
+// const PORT = process.env.PORT || 3000;
+// app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
