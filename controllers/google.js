@@ -2,16 +2,14 @@ const express = require("express");
 const router = express.Router();
 const admin = require("firebase-admin");
 const jwt = require("jsonwebtoken");
+const path = require("path");
+require("dotenv").config();
 
-// تهيئة Firebase Admin SDK
-const serviceAccount = require("../signinlasttttttttttttttt-firebase-adminsdk-fbsvc-2722b4cead.json");
-
-// أضف هذا للتحقق من أن معرّف المشروع صحيح
-console.log("المشروع المحدد:", serviceAccount.project_id);
+const serviceAccountPath = JSON.parse(process.env.FIREBASE_CONFIG_PATH);
+console.log(serviceAccountPath);
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  // أضف هذا للتأكد من استخدام نفس معرّف المشروع
-  databaseURL: "https://signinlasttttttttttttttt.firebaseio.com",
+  credential: admin.credential.cert(serviceAccountPath),
+  // databaseURL: "https://YOUR-PROJECT-ID.firebaseio.com"
 });
 console.log(admin);
 router.post("/verify-token", async (req, res) => {
