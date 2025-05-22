@@ -18,14 +18,13 @@ app.use("/api/interest", interestRoute);
 app.use("/api/follow", relationshipRoute);
 app.use("/api", gg);
 app.use("/api/profile", profileRoute);
-
+console.log("*9************************");
 sequelize
   .sync({ force: false })
   .then(() => console.log("Database synced successfully"))
   .catch((error) => console.error("Error syncing database:", error));
 
-// تشغيل السيرفر
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8005;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

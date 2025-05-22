@@ -6,12 +6,12 @@ const path = require("path");
 require("dotenv").config();
 
 const serviceAccountPath = JSON.parse(process.env.FIREBASE_CONFIG_PATH);
-console.log(serviceAccountPath);
+// console.log(serviceAccountPath);
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccountPath),
-  // databaseURL: "https://YOUR-PROJECT-ID.firebaseio.com"
+  // databaseURL: "https://signinlasttttttttttttttt.firebaseio.com"
 });
-console.log(admin);
+// console.log(admin);
 router.post("/verify-token", async (req, res) => {
   const { idToken } = req.body;
   console.log("Received ID Token:", idToken);
@@ -19,7 +19,6 @@ router.post("/verify-token", async (req, res) => {
   console.log("Header:", decoded.header);
   console.log("Payload:", decoded.payload);
   try {
-    // تحقق من صلاحية الـ idToken
     const decodedToken = await admin.auth().verifyIdToken(idToken);
 
     const { uid, email, name } = decodedToken;
@@ -38,5 +37,3 @@ router.post("/verify-token", async (req, res) => {
   }
 });
 module.exports = router;
-// const PORT = process.env.PORT || 3000;
-// app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
