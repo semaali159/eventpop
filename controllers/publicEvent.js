@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const db = require("../model");
+const { Op } = require("sequelize");
 const createEvent = asyncHandler(async (req, res) => {
   //Joi
   const { name, description, image, date, laitude, longitude, price, tickets } =
@@ -39,7 +40,56 @@ const getEventById = asyncHandler(async (req, res) => {
   }
   return res.status(404).json({ message: "events: ", event });
 });
-const getUpComingEvent = asyncHandler(async (req, res) => {
-  const currentTime = Date.now();
-  const date = new Date(currentTime);
+
+const getUpcomingEvents = asyncHandler(async (req, res) => {
+  const now = new Date();
+  const events = await db.publicEvent.findAll({
+    where: {
+      date: {
+        [Op.gt]: now,
+      },
+    },
+    include: [
+      {
+        model: db.user,
+        attributes: ["id", "name", "image"],
+      },
+    ],
+  });
+
+  if (!events) {
+    return res.status(404).json({ message: "No upcoming events found" });
+  }
+
+  return res.status(200).json({ message: "Upcoming events", events });
 });
+
+const getPastEvents = asyncHandler(async (req, res) => {
+  const now = new Date();
+  const events = await db.publicEvent.findAll({
+    where: {
+      date: {
+        [Op.lt]: now,
+      },
+    },
+    include: [
+      {
+        model: db.user,
+        attributes: ["id", "name", "image"],
+      },
+    ],
+  });
+
+  if (!events) {
+    return res.status(404).json({ message: "no events found" });
+  }
+
+  return res.status(200).json({ message: "Past events", events });
+});
+module.exports = {
+  getUpcomingEvents,
+  getPastEvents,
+  getEventById,
+  getAllEvents,
+  createEvent,
+};
