@@ -1,8 +1,8 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
 
-const Notification = sequelize.define(
-  "Notification",
+const gnoti = sequelize.define(
+  "gnoti",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -10,13 +10,25 @@ const Notification = sequelize.define(
       autoIncrement: true,
     },
     userId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
-        model: "user",
+        model: "users",
         key: "id",
       },
       onDelete: "CASCADE",
+    },
+    type: {
+      type: DataTypes.ENUM(
+        "follow-request",
+        "follow-accepted",
+        //follow reject
+        "event-invite",
+        "event-accepted",
+        "event-rejected"
+      ),
+      allowNull: false,
+      defaultValue: "follow-request",
     },
     message: {
       type: DataTypes.STRING,
@@ -28,9 +40,8 @@ const Notification = sequelize.define(
     },
   },
   {
-    tableName: "Notifications",
     timestamps: true,
   }
 );
 
-module.exports = Notification;
+module.exports = gnoti;

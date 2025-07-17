@@ -1,4 +1,5 @@
-function sendNotification(fcmToken, title, body) {
+admin = require("../config/firebase");
+async function sendNotification(fcmToken, title, body) {
   const message = {
     notification: {
       title,
@@ -8,7 +9,7 @@ function sendNotification(fcmToken, title, body) {
   };
 
   try {
-    const response = admin.messaging().send(message);
+    const response = await admin.messaging().send(message);
     console.log("Successfully sent message:", response);
     return true;
   } catch (error) {

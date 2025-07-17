@@ -8,6 +8,8 @@ const interestRoute = require("./routes/interest");
 const relationshipRoute = require("./routes/relationship");
 const gg = require("./controllers/google");
 const profileRoute = require("./routes/profile");
+const inviteRoute = require("./routes/invite");
+const paymentRoute = require("./routes/payment");
 const app = express();
 app.use(express.json());
 app.use("/api/category", categoryRoute);
@@ -18,6 +20,8 @@ app.use("/api/interest", interestRoute);
 app.use("/api/follow", relationshipRoute);
 app.use("/api", gg);
 app.use("/api/profile", profileRoute);
+app.use("/api/invite", inviteRoute);
+app.use("/api/payment", paymentRoute);
 console.log("*9************************");
 sequelize
   .sync({ force: false })

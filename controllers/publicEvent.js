@@ -86,6 +86,10 @@ const getPastEvents = asyncHandler(async (req, res) => {
 
   return res.status(200).json({ message: "Past events", events });
 });
+const getEventByInterest = asyncHandler(async (req, res) => {
+  const userId = req.user.id;
+  const interests = db.userInterest.findAll({ where: { id: userId } });
+});
 module.exports = {
   getUpcomingEvents,
   getPastEvents,

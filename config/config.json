@@ -1,10 +1,16 @@
 {
   "development": {
-    "username": "postgres",
-    "password": "00000",
-    "database": "graduate",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "username": "neondb_owner",
+    "password": "npg_OZ1fFVcqih2r",
+    "database": "neondb",
+    "host": "ep-plain-morning-a907r7yf-pooler.gwc.azure.neon.tech",
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   },
   "test": {
     "username": "drf_user",
