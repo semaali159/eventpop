@@ -32,8 +32,7 @@ const createRequest = asyncHandler(async (req, res) => {
 
   const title = `Follow Request`;
   const body = `${user2.name} sent you a follow request`;
-  token =
-    "cRy7L3FjSpaug1TizFNbT6:APA91bG40uqOvwVdB2PGJ0LK14QdLaVhpREDhxdX3Sns48nNXyJG7ztoul-R7Qvmjke8UBbR26CuXuD7-iTt-DLF8wxdsfPWY7wKb3BtN-eaoS-fdp_9nL4";
+  token = " ";
   const mo = await db.gnoti.create({
     userId: user1.id,
     type: "follow-request",
@@ -122,9 +121,8 @@ const accepteRequest = asyncHandler(async (req, res) => {
 //   // }
 //   console.log(body);
 
-//   token =
-//     "cFv79hF_RSKlHuGFvFVfUe:APA91bErOhrt93-tnItm-mt2sdhrqMQPJafRw_zfIgelWVbskXDjjJKbxLTvHe1b5PCjIupEWYgErnjCvfANKgGqkhlWr1AWhMlHCIyPsZgy5FcOKXWwVm0";
-//   const mo = await db.gnoti.create({
+//   token =" "
+//  const mo = await db.gnoti.create({
 //     userId: user2.id,
 //     type: "follow-accepted",
 //     message: `${user1.name} accepted your follow request`,

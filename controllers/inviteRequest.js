@@ -57,8 +57,7 @@ const inviteFrind = asyncHandler(async (req, res) => {
     await transaction.commit();
 
     followers.forEach((follow) => {
-      const token =
-        "cFv79hF_RSKlHuGFvFVfUe:APA91bErOhrt93-tnItm-mt2sdhrqMQPJafRw_zfIgelWVbskXDjjJKbxLTvHe1b5PCjIupEWYgErnjCvfANKgGqkhlWr1AWhMlHCIyPsZgy5FcOKXWwVm0"; // مثال فقط
+      const token = " ";
       if (token) {
         sendNotification(
           token,
