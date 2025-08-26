@@ -13,7 +13,7 @@ const paymentRoute = require("./routes/payment");
 const handleStripeWebhook = require("./controllers/stripeWebhook");
 const app = express();
 app.use(express.json());
-app.use(
+app.post(
   "/webhook/stripe",
   express.raw({ type: "application/json" }),
   handleStripeWebhook
