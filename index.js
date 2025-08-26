@@ -15,7 +15,8 @@ const app = express();
 app.use(express.json());
 app.use(
   "/webhook/stripe",
-  express.raw({ type: "application/json" }) // 👈 بديل عن bodyParser.raw
+  express.raw({ type: "application/json" }),
+  handleStripeWebhook
 );
 app.use("/api/category", categoryRoute);
 app.use("/api/place", placeRoute);
