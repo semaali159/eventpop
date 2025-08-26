@@ -12,12 +12,13 @@ const inviteRoute = require("./routes/invite");
 const paymentRoute = require("./routes/payment");
 const handleStripeWebhook = require("./controllers/stripeWebhook");
 const app = express();
-app.use(express.json());
 app.post(
   "/webhook/stripe",
   express.raw({ type: "application/json" }),
   handleStripeWebhook
 );
+app.use(express.json());
+
 app.use("/api/category", categoryRoute);
 app.use("/api/place", placeRoute);
 app.use("/api/photograph", PhotographRoute);
