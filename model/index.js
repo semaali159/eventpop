@@ -5,13 +5,13 @@ const userInterest = require("./userInterest");
 const userLocation = require("./userLocation");
 const follow = require("./follow");
 const publicEvent = require("./publicEvent");
-const notification = require("./notification");
+// const notification = require("./notification");
 const fcmToken = require("./fcmToken");
 const sequelize = require("../config/connection");
 const gnoti = require("./gnoti");
 const invite = require("./invite");
 const attendee = require("./attendee");
-
+const payment = require("./payment");
 // Associations
 //each user have many public event
 user.hasMany(publicEvent, { foreignKey: "userId", onDelete: "CASCADE" });
@@ -19,9 +19,9 @@ publicEvent.belongsTo(user, { foreignKey: "userId" });
 //each user have many fcm token for notification
 user.hasMany(fcmToken, { foreignKey: "userId", onDelete: "CASCADE" });
 fcmToken.belongsTo(user, { foreignKey: "userId" });
-//each user have many notification
-user.hasMany(gnoti, { foreignKey: "senderId", onDelete: "CASCADE" });
-notification.belongsTo(user, { foreignKey: "senderId" });
+// // //each user have many notification
+//  user.hasMany(gnoti, { foreignKey: "senderId", onDelete: "CASCADE" });
+//  notification.belongsTo(user, { foreignKey: "senderId" });
 user.hasMany(gnoti, { foreignKey: "userId", onDelete: "CASCADE" });
 gnoti.belongsTo(user, { foreignKey: "userId" });
 //users have many interests and interests belongs to many users
@@ -82,6 +82,8 @@ publicEvent.belongsToMany(user, {
   foreignKey: "publicEventId",
   as: "invitedEvent",
 });
+attendee.hasOne(payment);
+payment.belongsTo(attendee);
 module.exports = {
   user,
   interest,
@@ -90,7 +92,7 @@ module.exports = {
   userLocation,
   locations,
   follow,
-  notification,
+  // notification,
   fcmToken,
   publicEvent,
   gnoti,

@@ -16,6 +16,7 @@ const createEvent = asyncHandler(async (req, res) => {
     price,
     tickets,
     userId: req.user.id,
+    availableSeats: tickets,
   });
   //send notificaton for all followers
   return res.status(201).json({ message: "event created successfuly" });

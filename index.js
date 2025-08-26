@@ -10,8 +10,13 @@ const gg = require("./controllers/google");
 const profileRoute = require("./routes/profile");
 const inviteRoute = require("./routes/invite");
 const paymentRoute = require("./routes/payment");
+const handleStripeWebhook = require("./controllers/stripeWebhook");
 const app = express();
 app.use(express.json());
+app.use(
+  "/webhook/stripe",
+  express.raw({ type: "application/json" }) // 👈 بديل عن bodyParser.raw
+);
 app.use("/api/category", categoryRoute);
 app.use("/api/place", placeRoute);
 app.use("/api/photograph", PhotographRoute);

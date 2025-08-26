@@ -33,5 +33,10 @@ const publicEvent = sequelize.define("publicEvent", {
   },
   price: { type: DataTypes.FLOAT, allowNull: false },
   tickets: { type: DataTypes.INTEGER, allowNull: false },
+  availableSeats: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 0,
+  },
 });
 module.exports = publicEvent;
